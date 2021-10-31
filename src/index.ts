@@ -8,7 +8,7 @@ import Tracer from 'tracer';
 import morgan from 'morgan';
 
 const supportedCrewLinkVersions = new Set(['2.0.0', '2.0.1']);
-const httpsEnabled = true;
+const httpsEnabled = !!process.env.HTTPS;
 
 const port = process.env.PORT || (httpsEnabled ? '443' : '9736');
 
@@ -46,7 +46,7 @@ app.set('view engine', 'pug')
 app.use(morgan('combined'))
 
 let connectionCount = 0;
-let address = process.env.ADDRESS || '4546';
+let address = process.env.ADDRESS;
 if (!address) {
 	logger.error('You must set the ADDRESS environment variable.');
 	process.exit(1);
@@ -61,7 +61,7 @@ app.get('/health', (req, res) => {
 		uptime: process.uptime(),
 		connectionCount,
 		address,
-		name: 'serverus'
+		name: process.env.NAME
 	});
 })
 
