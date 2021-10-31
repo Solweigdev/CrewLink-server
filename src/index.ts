@@ -8,7 +8,7 @@ import Tracer from 'tracer';
 import morgan from 'morgan';
 
 const supportedCrewLinkVersions = new Set(['2.0.0', '2.0.1']);
-const httpsEnabled = !!process.env.HTTPS;
+const httpsEnabled = true;
 
 const port = process.env.PORT || (httpsEnabled ? '443' : '9736');
 
@@ -61,7 +61,7 @@ app.get('/health', (req, res) => {
 		uptime: process.uptime(),
 		connectionCount,
 		address,
-		name: process.env.NAME
+		name: 'serverus'
 	});
 })
 
